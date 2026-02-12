@@ -1,3 +1,4 @@
+import 'package:blabla/ui/widgets/actions/bla_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/ride_pref/ride_pref.dart';
@@ -28,7 +29,14 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [_buildBackground(), _buildForeground()]);
+    return Stack(children: [_buildBackground(), _buildForeground(), 
+      Column(
+        children: [
+          BlaButton(text: 'text', variant: BlaButtonVariant.primary, expand: true,),
+          BlaButton(text: 'text', variant: BlaButtonVariant.secondary)
+        ],
+      )
+    ]);
   }
 
   Widget _buildBackground() {
