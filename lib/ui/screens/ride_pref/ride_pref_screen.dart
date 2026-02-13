@@ -29,14 +29,8 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [_buildBackground(), _buildForeground(), 
-      Column(
-        children: [
-          BlaButton(text: 'text', variant: BlaButtonVariant.primary, expand: true,),
-          BlaButton(text: 'text', variant: BlaButtonVariant.secondary)
-        ],
-      )
-    ]);
+    return 
+    Stack(children: [_buildBackground(), _buildForeground()]);
   }
 
   Widget _buildBackground() {

@@ -1,3 +1,4 @@
+import 'package:blabla/ui/screens/location_picker/location_picker_screen.dart';
 import 'package:blabla/ui/theme/theme.dart';
 import 'package:blabla/ui/widgets/actions/bla_button.dart';
 import 'package:blabla/ui/widgets/inputs/ride_pref_input_field.dart';
@@ -57,9 +58,28 @@ class _RidePrefFormState extends State<RidePrefForm> {
       arrival = temp;
     });
   }
-  
+
   void _handleSearch() {
 
+  }
+
+  void _handleSelectLocation({required bool isDeparture}) async {
+    final selectedLocation = await Navigator.push<Location>(
+      context,
+      MaterialPageRoute(builder: (_) => LocationPickerScreen(
+        selectedLocation: isDeparture ? departure : arrival
+      )),
+    );
+
+    if (selectedLocation == null) return;
+
+    setState(() {
+      if (isDeparture) {
+        departure = selectedLocation;
+      } else {
+        arrival = selectedLocation;
+      }
+    });
   }
 
   // ----------------------------------
@@ -80,27 +100,27 @@ class _RidePrefFormState extends State<RidePrefForm> {
             icon: Icons.location_on,
             label: departure?.name,
             placeholder: 'Leaving from',
-            onTap: () => {},
+            onTap: () => _handleSelectLocation(isDeparture: true),
             trailing: (departure != null || arrival != null)
-              ? IconButton(
-                  icon: Icon(Icons.swap_vert, color: BlaColors.primary),
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(
-                    minWidth: 32,
-                    minHeight: 32,
-                  ),
-                  onPressed: _handleSwap,
-                )
-              : null,
+                ? IconButton(
+                    icon: Icon(Icons.swap_vert, color: BlaColors.primary),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(
+                      minWidth: 32,
+                      minHeight: 32,
+                    ),
+                    onPressed: _handleSwap,
+                  )
+                : null,
           ),
-      
+
           RideprefInputField(
             icon: Icons.location_on,
             label: arrival?.name,
             placeholder: 'Going to',
-            onTap: () {},
+            onTap: () => _handleSelectLocation(isDeparture: false),
           ),
-      
+
           RideprefInputField(
             icon: Icons.calendar_month,
             label:
@@ -108,18 +128,19 @@ class _RidePrefFormState extends State<RidePrefForm> {
             placeholder: '',
             onTap: () {},
           ),
-      
+
           RideprefInputField(
             icon: Icons.person_outlined,
             label: '$requestedSeats passenger${requestedSeats > 1 ? 's' : ''}',
             placeholder: '',
             onTap: () {},
           ),
-      
+
           BlaButton(
-            text: 'Search', 
-            variant: BlaButtonVariant.primary, 
-            expand: true, radius: 0,
+            text: 'Search',
+            variant: BlaButtonVariant.primary,
+            expand: true,
+            radius: 0,
             onPressed: _handleSearch,
           ),
         ],
