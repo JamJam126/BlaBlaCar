@@ -13,7 +13,7 @@ List<InheritedProvider> get devProviders {
   return [
 
     Provider<RideRepository>(create: (_) => RideRepositoryMock()),
-    Provider<LocationsRepository>(create: (_) => LocationsRepositoryMock()),
+    Provider<LocationRepository>(create: (_) => LocationRepositoryMock()),
     Provider<RidePrefsRepository>(create: (_) => RidePrefsRepositoryMock()),
   ];
 }

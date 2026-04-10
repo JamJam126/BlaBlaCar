@@ -1,5 +1,5 @@
 import 'package:blabla/model/ride/locations.dart';
 
-abstract class LocationsRepository {
+abstract class LocationRepository {
   List<Location> getAvailableLocations();
 }
